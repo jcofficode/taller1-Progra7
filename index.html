@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ===== Tipografias profesionales (Google Fonts) =====
+         Space Grotesk para titulos (look tecnologico/energetico) e
+         Inter para el cuerpo del texto (legibilidad moderna). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ===== SEO / Web Semantica ===== -->
+    <title>Refurbished | Tecnología Reacondicionada Premium con Garantía</title>
+    <meta
+      name="description"
+      content="Refurbished vende equipos tecnológicos reacondicionados premium: celulares, laptops, tablets y más, con garantía de 12 meses y hasta 50% de descuento frente a nuevos. Tecnología sostenible."
+    />
+    <meta
+      name="keywords"
+      content="Refurbished, reacondicionado, refurbished, celulares reacondicionados, laptops reacondicionadas, tecnología, segunda mano, garantía, ahorro, eco-friendly"
+    />
+    <meta name="author" content="JC - Taller Pro7" />
+    <meta name="theme-color" content="#c6ff2e" />
+
+    <!-- Open Graph para compartir en redes (mejora conversion) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Refurbished | Tecnología Reacondicionada Premium" />
+    <meta
+      property="og:description"
+      content="Equipos reacondicionados con garantía total y hasta 50% de ahorro. Descubre la tienda Refurbished."
+    />
+    <meta property="og:locale" content="es_ES" />
+    <!-- Aplica el tema guardado antes de renderizar (evita parpadeo) -->
+    <script>
+      if (localStorage.getItem('tema_jc') === 'claro') {
+        document.documentElement.classList.add('claro')
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Punto de montaje de la SPA de Vue -->
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

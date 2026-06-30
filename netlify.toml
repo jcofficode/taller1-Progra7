@@ -1,0 +1,22 @@
+# ============================================================
+# netlify.toml - Configuracion de despliegue en Netlify.
+# Define como construir el proyecto y como servir la SPA de Vue.
+# ============================================================
+
+[build]
+  # Comando que ejecuta Netlify para compilar el proyecto
+  command = "pnpm run build"
+  # Carpeta que se publica (salida del build de Vite)
+  publish = "dist"
+
+[build.environment]
+  # Vite 7 requiere Node 20.19+; fijamos Node 20 para evitar errores
+  NODE_VERSION = "20"
+
+# Redireccion para Single Page Application (SPA):
+# cualquier ruta (ej. /tienda, /comparador) se sirve con index.html
+# para que Vue Router maneje la navegacion sin errores 404 al recargar.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

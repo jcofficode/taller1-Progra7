@@ -1,0 +1,29 @@
+{
+  "name": "refurbished-landing-jc",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Landing Page de alta conversion para la tienda de tecnologia reacondicionada Refurbished - Taller Parte 1 (JC)",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@headlessui/vue": "^1.7.23",
+    "@heroicons/vue": "^2.2.0",
+    "@tailwindcss/vite": "^4.1.11",
+    "axios": "^1.7.9",
+    "pinia": "^3.0.1",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.0",
+    "tailwindcss": "^4.1.11",
+    "vite": "^7.0.0"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  }
+}

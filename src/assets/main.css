@@ -1,0 +1,335 @@
+/* ============================================================
+   main.css - Hoja de estilos global de Refurbished (Taller JC)
+   Tailwind CSS v4 + variables de tema personalizadas.
+   La paleta tech: negro profundo + lima electrico (neon) como
+   color de marca, evocando tecnologia y sostenibilidad. Clases
+   personalizadas con sufijo _coffiJean (regla ApellidoNombre).
+   ============================================================ */
+@import 'tailwindcss';
+@import 'tailwindcss/theme.css';
+
+/* ---- Variables de tema (tokens de color y fuentes de la marca) ---- */
+@theme {
+  --color-marca-negro: #08090b; /* Fondo base ultra oscuro */
+  --color-marca-oscuro: #101319; /* Superficies secundarias */
+  --color-marca-gris: #171b22; /* Tarjetas y paneles */
+  --color-marca-gris-claro: #2a313c; /* Bordes y separadores */
+  --color-marca-lima: #c6ff2e; /* Color principal (neon lima) */
+  --color-marca-lima-hover: #b2e828; /* Estado hover del lima */
+  --color-marca-magenta: #ff2ea6; /* Acento secundario (alertas/dolor) */
+  --color-marca-cyan: #2ee6ff; /* Acento terciario */
+
+  /* Tipografias: Inter para cuerpo, Space Grotesk para titulos */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+}
+
+/* ---- Estilos base globales ---- */
+@layer base {
+  body {
+    /* Fondo oscuro, texto claro y fuente sin serifa con antialiasing */
+    @apply bg-marca-negro text-white font-sans antialiased;
+  }
+
+  /* Todos los titulos usan la fuente display para un look mas profesional */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  /* Tailwind v4 ya no aplica cursor pointer por defecto: lo forzamos
+     en botones activos para que la interfaz se sienta clickeable. */
+  button:not(:disabled),
+  [role='button'],
+  summary,
+  label[for] {
+    cursor: pointer;
+  }
+}
+
+/* ---- Efecto Glassmorphism (vidrio esmerilado) reutilizable ---- */
+.vidrio_coffiJean {
+  background: rgba(255, 255, 255, 0.06);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+/* ---- Barra de desplazamiento personalizada con acento lima ---- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-marca-oscuro);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-marca-gris-claro);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-marca-lima);
+}
+
+/* ---- Animacion de pulso/energia reutilizable (clase utilitaria) ---- */
+@keyframes pulso_coffiJean {
+  0%,
+  100% {
+    box-shadow: 0 0 18px rgba(198, 255, 46, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(198, 255, 46, 0.65);
+  }
+}
+
+/* Clase personalizada para resaltar elementos con brillo neon animado */
+.brillo-energia_coffiJean {
+  animation: pulso_coffiJean 2.6s ease-in-out infinite;
+}
+
+/* Gradiente de texto lima->cyan ANIMADO para titulos de impacto */
+.texto-gradiente_coffiJean {
+  background: linear-gradient(
+    90deg,
+    var(--color-marca-lima),
+    var(--color-marca-cyan),
+    var(--color-marca-lima)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: desplazar-gradiente_coffiJean 5s linear infinite;
+}
+
+/* Cinta diagonal decorativa de fondo (rejilla sutil) */
+.rejilla-fondo_coffiJean {
+  background-image: radial-gradient(rgba(198, 255, 46, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ============================================================
+   EFECTOS Y ANIMACIONES ADICIONALES (para dar vida a las secciones)
+   ============================================================ */
+
+/* 1. Mueve el gradiente del texto de izquierda a derecha sin fin */
+@keyframes desplazar-gradiente_coffiJean {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* 2. Flotacion suave (sube y baja) para elementos decorativos */
+@keyframes flotar_coffiJean {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.flotar_coffiJean {
+  animation: flotar_coffiJean 4s ease-in-out infinite;
+}
+
+/* 3. Aparicion al hacer scroll (reveal). El elemento arranca oculto y
+      desplazado; al recibir la clase .visible_coffiJean (via directiva
+      v-revelar con IntersectionObserver) se muestra suavemente. */
+.revelar_coffiJean {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.revelar_coffiJean.visible_coffiJean {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 4. Elevacion + brillo al pasar el mouse sobre tarjetas */
+.elevar_coffiJean {
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+.elevar_coffiJean:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Boton de favorito (corazon): icono claro por defecto y lima cuando
+   esta marcado. Se define aqui (fuera del modo claro) para que el icono
+   se vea SIEMPRE bien sobre su circulo oscuro, en ambos temas. */
+.btn-favorito_coffiJean {
+  color: #ffffff;
+}
+/* Al pasar el mouse, solo el corazon se pone lima (el circulo sigue
+   oscuro): hover sutil, sin "blob" verde feo. */
+.btn-favorito_coffiJean:hover {
+  color: var(--color-marca-lima);
+}
+.btn-favorito_coffiJean.es-favorito_coffiJean {
+  color: var(--color-marca-lima);
+}
+
+/* 5. Entrada del hero al cargar la pagina (sin esperar scroll) */
+@keyframes entrar-hero_coffiJean {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.entrar-hero_coffiJean {
+  animation: entrar-hero_coffiJean 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* 6. Subrayado animado tipo "barrido" para titulos de seccion */
+.subrayado_coffiJean {
+  position: relative;
+  display: inline-block;
+}
+.subrayado_coffiJean::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  height: 4px;
+  width: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--color-marca-lima), var(--color-marca-cyan));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s ease;
+}
+.revelar_coffiJean.visible_coffiJean .subrayado_coffiJean::after,
+.subrayado_coffiJean.activo_coffiJean::after {
+  transform: scaleX(1);
+}
+
+/* ============================================================
+   MODO CLARO - Se activa con la clase .claro en <html> (toggle del
+   boton sol/luna). Sobrescribimos los fondos, textos y bordes para
+   mantener buen contraste. Los acentos lima/cyan se conservan.
+   ============================================================ */
+html.claro body {
+  background: #eef1f6;
+  color: #0f172a;
+}
+/* Fondos del CUERPO: de oscuros a claros.
+   Importante: NO tocamos los overlays con opacidad (bg-marca-negro/80,
+   etc.) para que las imagenes de fondo de las cabeceras sigan visibles. */
+html.claro .bg-marca-negro {
+  background-color: #eef1f6;
+}
+html.claro .bg-marca-oscuro,
+html.claro .bg-marca-oscuro\/95 {
+  background-color: #ffffff;
+}
+html.claro .bg-marca-gris {
+  background-color: #ffffff;
+}
+html.claro .bg-marca-gris-claro {
+  background-color: #e6eaf0;
+}
+/* Bordes mas suaves */
+html.claro .border-marca-gris-claro {
+  border-color: #d7dde6;
+}
+html.claro .border-marca-gris {
+  border-color: #e6eaf0;
+}
+/* Textos del cuerpo: contraste oscuro sobre fondo claro */
+html.claro .text-white {
+  color: #0f172a;
+}
+html.claro .text-gray-200 {
+  color: #1f2937;
+}
+html.claro .text-gray-300 {
+  color: #334155;
+}
+html.claro .text-gray-400 {
+  color: #475569;
+}
+html.claro .text-gray-500 {
+  color: #64748b;
+}
+/* Acentos lima/cyan: se oscurecen sobre fondos blancos para que se lean */
+html.claro .text-marca-lima,
+html.claro .text-marca-lima\/90,
+html.claro .text-marca-lima\/80 {
+  color: #4d7c0f;
+}
+html.claro .text-marca-cyan {
+  color: #0e7490;
+}
+/* Texto con gradiente: version oscura legible en el cuerpo claro */
+html.claro .texto-gradiente_coffiJean {
+  background-image: linear-gradient(90deg, #4d7c0f, #0e7490, #4d7c0f);
+}
+/* La tarjeta de vidrio del cuerpo se adapta a fondo claro */
+html.claro .vidrio_coffiJean {
+  background: rgba(255, 255, 255, 0.55);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+/* Sombra mas tenue en modo claro */
+html.claro .elevar_coffiJean:hover {
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* --- Excepcion: las CABECERAS con imagen de fondo se mantienen en
+   estilo oscuro en AMBOS modos, para que la foto luzca y el texto
+   blanco se lea bien. Estas reglas (mas especificas) ganan a las del
+   cuerpo claro de arriba. --- */
+html.claro .cabecera-img_coffiJean .text-white {
+  color: #ffffff;
+}
+html.claro .cabecera-img_coffiJean .text-gray-200 {
+  color: #e5e7eb;
+}
+html.claro .cabecera-img_coffiJean .text-gray-300 {
+  color: #cbd5e1;
+}
+html.claro .cabecera-img_coffiJean .text-marca-lima,
+html.claro .cabecera-img_coffiJean .text-marca-lima\/90 {
+  color: var(--color-marca-lima);
+}
+html.claro .cabecera-img_coffiJean .text-marca-cyan {
+  color: var(--color-marca-cyan);
+}
+html.claro .cabecera-img_coffiJean .texto-gradiente_coffiJean {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-marca-lima),
+    var(--color-marca-cyan),
+    var(--color-marca-lima)
+  );
+}
+html.claro .cabecera-img_coffiJean .vidrio_coffiJean {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* 7. Respeta a quienes prefieren menos movimiento (accesibilidad) */
+@media (prefers-reduced-motion: reduce) {
+  .revelar_coffiJean,
+  .flotar_coffiJean,
+  .brillo-energia_coffiJean,
+  .texto-gradiente_coffiJean,
+  .entrar-hero_coffiJean {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
